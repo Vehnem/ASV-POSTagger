@@ -10,15 +10,14 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Used to change Tag sets in a tagged corpus
+ * Handle Tagsets
  * 
- * @author Marvin
+ * @author marvin, robert
  *
  */
-public class TagsetChanger {
-	
+public class Tagset {
+
 	/**
-	 * Property file like: oldTAG<TAB>newTAG
 	 * 
 	 * @param pathtotaggedcorpus
 	 * @param pathtopropertyfile
@@ -61,5 +60,47 @@ public class TagsetChanger {
 		tagged_file.close();
 		tagged_reader.close();
 		writer.close();
+	}	
+	
+	/**
+	 * 
+	 * @param inpath
+	 * @param outpath
+	 * @param split
+	 * @throws IOException
+	 */
+	public void removeTags(String inpath, String outpath, String split) throws IOException {
+		
+		FileReader fr = new FileReader(inpath);
+		BufferedReader br = new BufferedReader(fr);
+
+		String line = "";
+
+		File file = new File(outpath);
+
+		// creates the file
+		file.createNewFile();
+
+		// creates a FileWriter Object
+		FileWriter writer = new FileWriter(file);
+
+		// Writes the content to the file
+		
+
+		while ((line = br.readLine()) != null) {
+
+			ArrayList<String> new_line = new ArrayList<String>();
+
+			String[] words = line.split(" ");
+
+			for (String word : words) {
+				
+				new_line.add(word.split(split)[0]);
+			}
+			writer.write(String.join(" ", new_line)+"\n");
+		}
+		writer.flush();
+		writer.close();
+		br.close();
 	}
 }
