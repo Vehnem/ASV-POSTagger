@@ -1,4 +1,4 @@
-package org.asv.postagger;
+
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -9,15 +9,15 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Database {
+public class Database2 {
 
 /**
  * TODO: - Count words instead of sentences
  */
-	public Database() {
+	public Database2() {
 	}
 
-	private static final Logger LOGGER = Logger.getLogger(Database.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(Database2.class.getName());
 
 	public int write_train_file_from_DB(String path, String driver, String url, String user, String pw, String database,
 			String column, String delimiter, float testrate, int limit) {

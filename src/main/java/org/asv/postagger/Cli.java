@@ -2,6 +2,7 @@ package org.asv.postagger;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -58,11 +59,10 @@ public class Cli {
 		}
 	}
 
-	public static Properties loadProps() throws IOException {
+	public static Properties loadProps(String filename) throws IOException {
 		Properties prop = new Properties();
 		InputStream input = null;
 
-		String filename = "./tagger.properties";
 		input = new FileInputStream(filename);
 		// input = getClass().getClassLoader().getResourceAsStream(filename);
 
@@ -113,25 +113,73 @@ public class Cli {
 		
 		Tagger tagger = new Tagger();
 		
-		database.writeFileFromDB(prop.getProperty("trainFile"), prop.getProperty("dbAdress"), prop.getProperty("dbUser"),
-				prop.getProperty("dbPassword"), prop.getProperty("table"), prop.getProperty("sentence_column"),
-				prop.getProperty("delimiter"), Integer.parseInt(prop.getProperty("testPercentage")),
+		database.writeFileFromDB(prop.getProperty("output")+"corpus", 
+				prop.getProperty("dbAdress"),
+				prop.getProperty("dbUser"),
+				prop.getProperty("dbPassword"),
+				prop.getProperty("table"), 
+				prop.getProperty("sentence_column"),
+				prop.getProperty("delimiter"), 
+				Integer.parseInt(prop.getProperty("testPercentage")),
 				Integer.parseInt(prop.getProperty("limit")));
-		tagger.trainFromFile(prop.getProperty("trainFile"));
+		
+	}
+	
+	public static void training(Properties prop) throws IOException {
+		
+		Tagger tagger = new Tagger();
+		
+		tagger.train(prop.getProperty("output")+"/corpus","RDRPOSTagger/pSCRDRtagger/");
+	}
+	
+	public static void eval(Properties prop) throws IOException {
+		
+		Tagset tagset = new Tagset();
+		
+		tagset.removeTags(prop.getProperty("output")+"corpus_test", prop.getProperty("output")+"corpus_test_wot", "/");
+		
+		Tagger tagger = new Tagger();
+		
+		tagger.tagfile(prop.getProperty("output")+"corpus.RDR",
+				prop.getProperty("output")+"/corpus.DICT", 
+				prop.getProperty("output")+"/corpus_test_wot");
+		
+		Evaluation evaluation = new Evaluation();
+		
+		HashMap<String, Long> map = new HashMap<String, Long>();
+		map = evaluation.evaluate(prop.getProperty("output")+"corpus_test", prop.getProperty("output")+"corpus_test_wot.TAGGED");
+		
+		float fa = map.get("false");
+		float all = map.get("all");
+		
+		float per = 1 - (fa / all);
+		
+		System.out.println(per);
+		
+		//result
+		FileWriter fw = new FileWriter(prop.getProperty("output")+"result");
+		
+		fw.write(String.valueOf(per)+" percent");
+		
+		fw.flush();
+		fw.close();
 	}
 
+	//TODO mkdir for output, skip db so use file in path
 	// Only from porpfile
 	public static void main(String[] args) throws IOException {
 
-		
-		
 		String arq = Arrays.toString(args);
 
 		if (arq.contains("-genprops")) {// Generate new Property File: -genprops
 			genProps();
 		} else {
-			Properties prop = loadProps();
+			Properties prop = loadProps("sampleprop");
 			fromdb(prop);
+			System.out.println("train...");
+			training(prop);
+			System.out.println("evaluate...");
+			eval(prop);
 		}
 	}
 }

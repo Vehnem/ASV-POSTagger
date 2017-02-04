@@ -19,18 +19,9 @@ public class Tagger {
 	
 	private static final Logger LOGGER = Logger.getLogger(Tagger.class.getName());
 	
-	/**
-	 * 
-	 * @param goldCorpus
-	 * @throws IOException
-	 */
-	public void train(String goldCorpus ) throws IOException {
-
-		
-		
-//		python RDRPOSTagger.py train PATH-TO-GOLD-STANDARD-TRAINING-CORPUS
-		ProcessBuilder pb = new ProcessBuilder("python", "RDRPOSTagger.py", "train",goldCorpus);
-		pb.directory(new File("./tagger/RDRPOSTagger/pSCRDRtagger/"));
+	public void new_train(String goldCorpus) throws IOException {
+		ProcessBuilder pb = new ProcessBuilder("python", "RDRPOSTagger.py", "train","../../data/goldcorpus");
+		pb.directory(new File("./RDRPOSTagger/pSCRDRtagger/"));
 		Process p = pb.start();
 		
 		BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -41,11 +32,35 @@ public class Tagger {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param goldCorpus
+	 * @throws IOException
+	 */
+	public void train(String pathtocorpus, String taggerpath ) throws IOException {
+
+		
+		
+//		python RDRPOSTagger.py train PATH-TO-GOLD-STANDARD-TRAINING-CORPUS
+		ProcessBuilder pb = new ProcessBuilder("python", "RDRPOSTagger.py", "train","../../"+pathtocorpus);
+		pb.directory(new File(taggerpath));
+		Process p = pb.start();
+		
+		BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+		String ret;
+		
+		while( null != (ret = in.readLine())) {
+			LOGGER.log(Level.FINE, ret);
+		}
+	}
+	
+	
+	//TODO if not running change path
 	public boolean tagfile(String model, String lexicon, String corpus) throws IOException {
 		
 //		python RDRPOSTagger.py tag ../Models/POS/German.RDR ../Models/POS/German.DICT ../data/GermanRawTest
-		ProcessBuilder pb = new ProcessBuilder("python", "RDRPOSTagger.py", "tag",model,lexicon,corpus);
-		pb.directory(new File("./tagger/RDRPOSTagger/pSCRDRtagger/"));
+		ProcessBuilder pb = new ProcessBuilder("python", "RDRPOSTagger.py", "tag","../../"+model,"../../"+lexicon,"../../"+corpus);
+		pb.directory(new File("RDRPOSTagger/pSCRDRtagger/"));
 		Process p = pb.start();
 	
 		BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -73,7 +88,7 @@ public class Tagger {
 
 		System.out.println("\n====== Training ======");
 		System.out.println("\nTraining on Training-File...");
-		train("../../../data/" + filename);
+		train("../../../data/" + filename, "");
 
 		Tagset tagset = new Tagset();
 		
