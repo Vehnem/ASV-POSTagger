@@ -95,7 +95,12 @@ public class Tagset {
 
 			for (String word : words) {
 				
-				new_line.add(word.split(split)[0]);
+				if(word.startsWith("/")) {
+					new_line.add("/");
+				} else {
+					new_line.add(word.split(split)[0]);
+				}
+				
 			}
 			writer.write(String.join(" ", new_line)+"\n");
 		}
