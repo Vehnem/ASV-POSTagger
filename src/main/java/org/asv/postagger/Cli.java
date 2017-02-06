@@ -1,7 +1,9 @@
 package org.asv.postagger;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,8 +41,8 @@ public class Cli {
 			prop.setProperty("testPercentage", "10");
 			prop.setProperty("limit", "-1");
 
-			//TODO Offset maybe?
-			
+			// TODO Offset maybe?
+
 			// save properties to project folder
 			prop.store(output, "Tagger Properties:");
 
@@ -107,65 +109,72 @@ public class Cli {
 	}
 
 	public static void fromdb(Properties prop) throws IOException {
-		
-		
+
 		Database database = new Database();
-		
+
 		Tagger tagger = new Tagger();
-		
-		database.writeFileFromDB(prop.getProperty("output")+"corpus", 
-				prop.getProperty("dbAdress"),
-				prop.getProperty("dbUser"),
-				prop.getProperty("dbPassword"),
-				prop.getProperty("table"), 
-				prop.getProperty("sentence_column"),
-				prop.getProperty("delimiter"), 
-				Integer.parseInt(prop.getProperty("testPercentage")),
-				Integer.parseInt(prop.getProperty("limit")));
-		
-	}
-	
-	public static void training(Properties prop) throws IOException {
-		
-		Tagger tagger = new Tagger();
-		
-		tagger.train(prop.getProperty("output")+"/corpus","RDRPOSTagger/pSCRDRtagger/");
-	}
-	
-	public static void eval(Properties prop) throws IOException {
-		
-		Tagset tagset = new Tagset();
-		
-		tagset.removeTags(prop.getProperty("output")+"corpus_test", prop.getProperty("output")+"corpus_test_wot", "/");
-		
-		Tagger tagger = new Tagger();
-		
-		tagger.tagfile(prop.getProperty("output")+"corpus.RDR",
-				prop.getProperty("output")+"/corpus.DICT", 
-				prop.getProperty("output")+"/corpus_test_wot");
-		
-		Evaluation evaluation = new Evaluation();
-		
-		HashMap<String, Long> map = new HashMap<String, Long>();
-		map = evaluation.evaluate(prop.getProperty("output")+"corpus_test", prop.getProperty("output")+"corpus_test_wot.TAGGED");
-		
-		float fa = map.get("false");
-		float all = map.get("all");
-		
-		float per = 1 - (fa / all);
-		
-		System.out.println(per);
-		
-		//result
-		FileWriter fw = new FileWriter(prop.getProperty("output")+"result");
-		
-		fw.write(String.valueOf(per)+" percent");
-		
-		fw.flush();
-		fw.close();
+
+		database.writeFileFromDB(prop.getProperty("output") + "corpus", prop.getProperty("dbAdress"),
+				prop.getProperty("dbUser"), prop.getProperty("dbPassword"), prop.getProperty("table"),
+				prop.getProperty("sentence_column"), prop.getProperty("delimiter"),
+				Integer.parseInt(prop.getProperty("testPercentage")), Integer.parseInt(prop.getProperty("limit")));
+
 	}
 
-	//TODO mkdir for output, skip db so use file in path
+	public static void training(Properties prop) throws IOException {
+
+		Tagger tagger = new Tagger();
+
+		tagger.train(prop.getProperty("output") + "/corpus", "RDRPOSTagger/pSCRDRtagger/");
+	}
+
+	public static void eval(Properties prop) throws IOException {
+
+		Tagset tagset = new Tagset();
+
+		tagset.removeTags(prop.getProperty("output") + "corpus_test", prop.getProperty("output") + "corpus_test_wot",
+				"/");
+
+		Tagger tagger = new Tagger();
+
+		tagger.tagfile(prop.getProperty("output") + "corpus.RDR", prop.getProperty("output") + "/corpus.DICT",
+				prop.getProperty("output") + "/corpus_test_wot");
+
+		Evaluation evaluation = new Evaluation();
+
+		HashMap<String, Long> map = new HashMap<String, Long>();
+		map = evaluation.evaluate(prop.getProperty("output") + "corpus_test",
+				prop.getProperty("output") + "corpus_test_wot.TAGGED");
+
+		float fa = map.get("false");
+		float all = map.get("all");
+
+		float accuracy = 1 - (fa / all);
+
+		System.out.println(accuracy);
+
+		genresult(prop, accuracy);
+	}
+
+	public static void genresult(Properties prop, float accuracy) {
+
+		OutputStream output = null;
+
+		try {
+			output = new FileOutputStream(prop.getProperty("output") + "used.properties");
+
+			prop.setProperty("accuracy", accuracy + "%");
+
+			prop.store(output, "Used properties + accuracy");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		}
+	}
+
+	// TODO mkdir for output, skip db so use file in path
 	// Only from porpfile
 	public static void main(String[] args) throws IOException {
 

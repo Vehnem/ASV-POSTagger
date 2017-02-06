@@ -16,17 +16,17 @@ public class EvalTest {
 
 	@Test
 	public void test() throws IOException {
-		Tagset tagset = new Tagset();
-		
-		tagset.removeTags("./test_test", "./test_test_wot", "/");
-		
-		Tagger tagger = new Tagger();
-		
-		tagger.tagfile("/test.RDR","./test.DICT", "/test_test_wot");
+//		Tagset tagset = new Tagset();
+//		
+//		tagset.removeTags("data/corpus_test", "corpust_test_wot", "/");
+//		
+//		Tagger tagger = new Tagger();
+//		
+//		tagger.tagfile("/test.RDR","./test.DICT", "/test_test_wot");
 		
 		Evaluation evaluation = new Evaluation();
 		HashMap<String, Long> map = new HashMap<String, Long>();
-		map = evaluation.evaluate("./test_test", "test_test_wot.TAGGED");
+		map = evaluation.evaluate("data/corpus_test", "data/corpus_test_wot.TAGGED");
 		
 		float fa = map.get("false");
 		float all = map.get("all");

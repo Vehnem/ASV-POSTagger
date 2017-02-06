@@ -7,6 +7,7 @@ import java.io.IOException;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+//rename in TrainTest
 public class TaggerTest {
 
 	Tagger tagger = new Tagger();
