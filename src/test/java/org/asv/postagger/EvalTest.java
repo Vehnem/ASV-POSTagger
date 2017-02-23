@@ -1,7 +1,5 @@
 package org.asv.postagger;
 
-import static org.junit.Assert.*;
-
 import java.io.IOException;
 import java.util.HashMap;
 
