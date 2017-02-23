@@ -1,7 +1,13 @@
 package org.asv.postagger;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -15,6 +21,26 @@ public class Database {
 	 * TODO: - Count words instead of sentences
 	 */
 	public Database() {
+	}
+	
+	public void write_train_file_from_file(String pathToFile, String outPath, float testPercent){
+		try {
+			BufferedReader read = new BufferedReader(new FileReader(pathToFile));
+			OutputStreamWriter writeTrain = new OutputStreamWriter(new FileOutputStream(outPath));
+			OutputStreamWriter writeTest = new OutputStreamWriter(new FileOutputStream(outPath + "_test"));
+			String line;
+			int i = 0;
+			int test = (int) Math.floor(100/testPercent);
+			while((line = read.readLine()) != null){
+				if(i%test == 0){
+					writeTest.write(line + "\n");
+				} else {
+					writeTrain.write(line + "\n");
+				}
+			}
+		} catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 
 	public int write_train_file_from_DB(String path, String driver, String url, String user, String pw, String table,
@@ -56,12 +82,9 @@ public class Database {
 
 			// writefile
 			while (r.next()) {
-
 				String sentence = r.getString(1);
-				sentence = sentence.replaceAll(delimiter, "/"); // replace
-																// WORD/TAG
-																// delimiter
-																// with '/'
+				//replace WORD/TAG delimiter with '/'
+				sentence = sentence.replaceAll(delimiter, "/");
 				//if i <= trainLimit
 				if (i <= trainLimit+1) {
 					// data for training
@@ -72,9 +95,7 @@ public class Database {
 					test.write(sentence);
 					test.newLine();
 				}
-
 				i++;
-
 			}
 
 			trainData.flush();
@@ -90,12 +111,20 @@ public class Database {
 	}
 
 	// TODO single method
+	
+	public void writeFileFromFile(String inputFile, String filename, int rate) {
+		String path = filename;
+		float frate = rate;
+		float testrate = frate / 100;
+		System.out.println("\n====== Starting ======");
+		write_train_file_from_file(inputFile, path, testrate);
+
+	}
 
 	public void writeFileFromDB(String filename, String databaseUrl, String user, String pw, String tablename,
 			String column, String delimiter, int rate, int limit) {
 		String path = filename;
 		String driver = "com.mysql.cj.jdbc.Driver";
-		//TODO calc with float :D
 		float frate = rate;
 		float testrate = frate / 100;
 		System.out.println("\n====== Starting ======");
