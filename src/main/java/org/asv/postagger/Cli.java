@@ -156,6 +156,12 @@ public class Cli {
 		genresult(prop, accuracy);
 	}
 
+	/**
+	 * Copy of the input properties  file with accuracy parameter
+	 * 
+	 * @param prop
+	 * @param accuracy
+	 */
 	public static void genresult(Properties prop, float accuracy) {
 
 		OutputStream output = null;

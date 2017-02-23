@@ -5,10 +5,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
-//TODO
-//1â€™000/NN franken/ADJA so/ADV ausgeben/VVINF ,/$, dass/KOUS 10/CARD personen/NN des/ART mittelstandes/ADJA //$( bedÃ¼rftige/ADJA davon/PAV profitieren/VVINF ./$. 
-//1â€™000/CARD franken/NN so/ADV ausgeben/VVINF ,/$, dass/KOUS 10/CARD personen/NN des/ART mittelstandes/NN bedÃ¼rftige/ADJA davon/PAV profitieren/VVINF ./$.
-
 /**
  * 
  * @author robert, marvin
@@ -17,6 +13,8 @@ import java.util.HashMap;
 public class Evaluation {
 
 	/**
+	 * 
+	 * Evaluation over GoldCorpus and TaggedCorpus data
 	 * 
 	 * @param goldCorpus
 	 * @param taggedCorpus
@@ -48,7 +46,6 @@ public class Evaluation {
 
 				countWords++;
 
-				//TODO
 				try {
 					if (!tLsplit[i].equals(gLsplit[i])) {
 						falseWords++;

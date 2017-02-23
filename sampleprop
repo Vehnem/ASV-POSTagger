@@ -1,11 +1,12 @@
 # Sample Props
 input=
-output=data/
+output=data/ger10k/
 delimiter=\\|
 limit=10000
 sentence_column=sentence_tagged
-dbAdress=localhost/test?useSSL=false
+dbAdress=localhost/tmprak?useSSL=false
 testPercentage=10
-dbUser=root
+dbUser=tmprak
 table=deu_news_2011
-dbPassword=1234
+dbPassword=tmprak
+

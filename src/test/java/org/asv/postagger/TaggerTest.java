@@ -1,7 +1,5 @@
 package org.asv.postagger;
 
-import static org.junit.Assert.*;
-
 import java.io.IOException;
 
 import org.junit.BeforeClass;
@@ -18,9 +16,7 @@ public class TaggerTest {
 	
 	@Test
 	public void train() throws IOException {
-		tagger.new_train("test");
+		tagger.train("test","RDRPOSTagger/pSCRDRtagger/");
 	}
 	
-
-
 }

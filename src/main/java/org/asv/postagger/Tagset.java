@@ -69,6 +69,7 @@ public class Tagset {
 	 * @param split
 	 * @throws IOException
 	 */
+	//TODO 
 	public void removeTags(String inpath, String outpath, String split) throws IOException {
 		
 		FileReader fr = new FileReader(inpath);
@@ -78,15 +79,13 @@ public class Tagset {
 
 		File file = new File(outpath);
 
-		// creates the file
+		// creates a file
 		file.createNewFile();
 
 		// creates a FileWriter Object
 		FileWriter writer = new FileWriter(file);
 
-		// Writes the content to the file
-		
-
+		// Writes content to a file
 		while ((line = br.readLine()) != null) {
 
 			ArrayList<String> new_line = new ArrayList<String>();
