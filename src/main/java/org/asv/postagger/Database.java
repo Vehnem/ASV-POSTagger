@@ -11,10 +11,15 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+/**
+ * 
+ * @author Robert, Marvin
+ *
+ */
 public class Database {
 
 	/**
-	 * TODO: - Count words instead of sentences
+	 * constructor
 	 */
 	public Database() {
 	}
