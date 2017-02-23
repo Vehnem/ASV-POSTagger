@@ -1,23 +1,21 @@
 package org.asv.postagger;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Properties;
-import java.util.Scanner;
-
-//TODO from file
 
 /**
  * 
  * @author robert, marvin
+ *
+ * TODO all paths first new File -> getPath
  *
  */
 public class Cli {
@@ -75,45 +73,9 @@ public class Cli {
 
 	}
 
-	public HashMap<String, String> input() {
-		Scanner in = new Scanner(System.in);
-
-		// Input: String path, String databaseUrl, String user,
-		// String pw, String tableName, String column, String delimiter
-		HashMap<String, String> map = new HashMap<String, String>();
-		try {
-			System.out.println("====== Input: ======\n");
-			System.out.println("Name of the trainfile (in data folder):");
-			map.put("output", in.nextLine());
-			System.out.println("Adress of the MySQL database:");
-			map.put("dbAdress", in.nextLine());
-			System.out.println("String MySQL username:");
-			map.put("dbUser", in.nextLine());
-			System.out.println("MySQL-User password:");
-			map.put("sbPassword", in.nextLine());
-			System.out.println("Table:");
-			map.put("table", in.nextLine());
-			System.out.println("Column with tagged sentences:");
-			map.put("sentence_column", in.nextLine());
-			System.out.println("Number of Rows you want to use:");
-			map.put("limit", Integer.parseInt(in.nextLine()) + "");
-			System.out.println("Token/Tag delimiter:\n" + "(Caution: Special Java String characters need Escaping! "
-					+ "For example: input '\\|' instead of '|')");
-			map.put("delimiter", in.nextLine());
-			System.out.println("Percentage of Data to use for testing:");
-			map.put("testPercentage", Integer.parseInt(in.nextLine()) + "");
-		} catch (Exception e) {
-			System.out.println("Error! Please check you input and try again.");
-		}
-		in.close();
-		return map;
-	}
-
 	public static void fromdb(Properties prop) throws IOException {
 
 		Database database = new Database();
-
-		Tagger tagger = new Tagger();
 
 		database.writeFileFromDB(prop.getProperty("output") + "corpus", prop.getProperty("dbAdress"),
 				prop.getProperty("dbUser"), prop.getProperty("dbPassword"), prop.getProperty("table"),
@@ -125,8 +87,6 @@ public class Cli {
 	public static void fromfile(Properties prop) throws IOException {
 
 		Database database = new Database();
-
-		Tagger tagger = new Tagger();
 
 		database.writeFileFromFile(prop.getProperty("input"), prop.getProperty("ouput"), Integer.parseInt(prop.getProperty("testPercentage")));
 
@@ -184,23 +144,43 @@ public class Cli {
 
 			prop.store(output, "Used properties + accuracy");
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e2) {
 			e2.printStackTrace();
 		}
 	}
 
-	// TODO mkdir for output, skip db so use file in path
-	// Only from porpfile
+	// TODO mkdir for output
 	public static void main(String[] args) throws IOException {
 
 		String arq = Arrays.toString(args);
-
-		if (arq.contains("-genprops")) {// Generate new Property File: -genprops
+		
+		// Generate new Property File: -genprops
+		if (arq.contains("-genprops")) {
 			genProps();
+		//Only tagging
+		} else if (args[0].equals("-tag")) {
+			
+			File pathtoModel = new File(args[1]);
+			File pathuntagged = new File(args[2]);
+		
+			if(pathtoModel.exists() && pathuntagged.exists()) {
+				Tagger tagger = new Tagger();
+				
+				tagger.tagfile(pathtoModel.getPath()+"/corpus.RDR", 
+						pathtoModel.getPath()+"/corpus.DICT", pathuntagged.getPath());
+			} else {
+				printUsage();
+			}
+			
+		//Only Eval, diff of two corpora
+		} else if (arq.contains("-validate")) {
+			
+		} else if (arq.contains("-help")) {
+		
 		} else {
-			Properties prop = loadProps("sampleprop");
+			//TODO catch prop not exist
+			Properties prop = loadProps(args[0]);
 			if(prop.getProperty("input").equals("")){
 				fromdb(prop);
 			} else {
@@ -210,6 +190,10 @@ public class Cli {
 			training(prop);
 			System.out.println("evaluate...");
 			eval(prop);
-		}
+		} 
+	}
+	
+	public static void printUsage() {
+		//TODO
 	}
 }

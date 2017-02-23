@@ -2,23 +2,24 @@ package org.asv.postagger;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+/**
+ * 
+ * @author Robert, Marvin
+ *
+ */
 public class Database {
 
 	/**
-	 * TODO: - Count words instead of sentences
+	 * constructor
 	 */
 	public Database() {
 	}
