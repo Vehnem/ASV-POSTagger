@@ -32,20 +32,11 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
-<<<<<<< HEAD
-<dependency>
-    <groupId>junit</groupId>
-    <artifactId>junit</artifactId>
-    <version>4.12</version>
-</dependency>
-		
-=======
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 		</dependency>
->>>>>>> 0c4212f2ba805a3c59f37c808400212d413f8598
 	</dependencies>
 
 	<build>
