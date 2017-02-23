@@ -34,12 +34,13 @@ public class Cli {
 			prop.setProperty("dbAdress", "");
 			prop.setProperty("dbUser", "");
 			prop.setProperty("dbPassword", "");
-			prop.setProperty("trainFile", "");
+			prop.setProperty("output", "");
 			prop.setProperty("table", "");
 			prop.setProperty("sentence_column", "");
 			prop.setProperty("delimiter", "\\|");
 			prop.setProperty("testPercentage", "10");
 			prop.setProperty("limit", "-1");
+			prop.setProperty("input", "");
 
 			// TODO Offset maybe?
 
@@ -83,7 +84,7 @@ public class Cli {
 		try {
 			System.out.println("====== Input: ======\n");
 			System.out.println("Name of the trainfile (in data folder):");
-			map.put("trainFile", in.nextLine());
+			map.put("output", in.nextLine());
 			System.out.println("Adress of the MySQL database:");
 			map.put("dbAdress", in.nextLine());
 			System.out.println("String MySQL username:");
@@ -118,6 +119,16 @@ public class Cli {
 				prop.getProperty("dbUser"), prop.getProperty("dbPassword"), prop.getProperty("table"),
 				prop.getProperty("sentence_column"), prop.getProperty("delimiter"),
 				Integer.parseInt(prop.getProperty("testPercentage")), Integer.parseInt(prop.getProperty("limit")));
+
+	}
+	
+	public static void fromfile(Properties prop) throws IOException {
+
+		Database database = new Database();
+
+		Tagger tagger = new Tagger();
+
+		database.writeFileFromFile(prop.getProperty("input"), prop.getProperty("ouput"), Integer.parseInt(prop.getProperty("testPercentage")));
 
 	}
 
@@ -190,7 +201,11 @@ public class Cli {
 			genProps();
 		} else {
 			Properties prop = loadProps("sampleprop");
-			fromdb(prop);
+			if(prop.getProperty("input").equals("")){
+				fromdb(prop);
+			} else {
+				fromfile(prop);
+			}
 			System.out.println("train...");
 			training(prop);
 			System.out.println("evaluate...");
