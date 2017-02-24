@@ -230,6 +230,6 @@ public class Cli {
 		System.out.println("\t\t\t Vergeleicht zwei Corpora\n");
 		System.out.println("\t -tag \t\t <path/to/model/folder/> <path/to/untagged/file>");
 		System.out.println("\t\t\t Taggen eines Corpus mit einem erstellten Model\n");
-		System.out.println("\t -help \t Zeigt diese Hilfe");
+		System.out.println("\t -help \t\t Zeigt diese Hilfe");
 	}
 }
