@@ -19,5 +19,4 @@ public class TaggerTest {
 //		tagger.train("test","RDRPOSTagger/pSCRDRtagger/");
 		Cli.printUsage();
 	}
-	
 }

@@ -158,7 +158,7 @@ public class Cli {
 		// Generate new Property File: -genprops
 		if (arq.contains("-genprops")) {
 			genProps();
-		//Only tagging
+		//Taggen
 		} else if (args[0].equals("-tag")) {
 			
 			File pathtoModel = new File(args[1]);
@@ -173,7 +173,7 @@ public class Cli {
 				printUsage();
 			}
 			
-		//Only Eval, diff of two corpora
+		//Validieren
 		} else if (arq.contains("-validate")) {
 			if( 3 == args.length) {
 				if( new File(args[1]).exists() && new File(args[2]).exists()) {
@@ -196,9 +196,10 @@ public class Cli {
 			}else {
 				printUsage();
 			}
-			
-		} else if (arq.contains("-help")) {
+		//Hilfe
+		} else if (arq.contains("-help" ) || 0 == args.length) {
 			printUsage();
+		//Trainieren
 		} else {
 			Properties prop = loadProps(args[0]);
 			
@@ -219,11 +220,11 @@ public class Cli {
 	}
 	
 	public static void printUsage() {
-		//TODO
-		System.out.println("Verwendung: asv-postagger [propertiefile]");
-		System.out.println("\t\t(Zum trainieren des Taggers)");
-		System.out.println("\toder asvpostagger [-options]");
-		System.out.println("\t\t(Zur Ausführung weiterer Funktionen)");
+		System.out.println("Verwendung:");
+		System.out.println("\t     asv-postagger [propertiefile]");
+		System.out.println("\t\t(Zum trainieren des Taggers)\n");
+		System.out.println("\toder asv-postagger [-options]");
+		System.out.println("\t\t(Zur Ausführung weiterer Funktionen)\n");
 		System.out.println("Wobei options folgendes umfasst:");
 		System.out.println("\t -genprops \t erzeugt neues tagger.properties\n");
 		System.out.println("\t -validate \t <path/to/goldCorpus> <path/to/taggedCorpus>");
