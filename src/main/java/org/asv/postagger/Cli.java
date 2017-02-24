@@ -181,6 +181,11 @@ public class Cli {
 		} else {
 			//TODO catch prop not exist
 			Properties prop = loadProps(args[0]);
+			
+			String folder_path = prop.getProperty("output");
+			File folder = new File(folder_path);
+			folder.mkdirs();
+			
 			if(prop.getProperty("input").equals("")){
 				fromdb(prop);
 			} else {
