@@ -7,6 +7,6 @@ if [ ! -d "/target" ]; then
   -Dmaven.test.skip=true \
   -Dmaven.javadoc.skip=true 
   echo "Compiling finished..."
-  git clone git@github.com:datquocnguyen/RDRPOSTagger.git
+  git clone https://github.com/datquocnguyen/RDRPOSTagger.git
 fi
 mvn exec:java -q -Dexec.mainClass="$MAIN_CLS" -Dexec.args="$*"
