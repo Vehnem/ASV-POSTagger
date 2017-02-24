@@ -153,6 +153,11 @@ public class Cli {
 
 	public static void main(String[] args) throws IOException {
 
+		if(0 == args.length) {
+			printUsage();
+			System.exit(0);
+		}
+		
 		String arq = Arrays.toString(args);
 		
 		// Generate new Property File: -genprops
@@ -197,7 +202,7 @@ public class Cli {
 				printUsage();
 			}
 		//Hilfe
-		} else if (arq.contains("-help" ) || 0 == args.length) {
+		} else if (arq.contains("-help" )) {
 			printUsage();
 		//Trainieren
 		} else {
