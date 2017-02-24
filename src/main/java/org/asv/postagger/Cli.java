@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.Socket;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Properties;
@@ -219,9 +220,16 @@ public class Cli {
 	
 	public static void printUsage() {
 		//TODO
-		System.out.println("Tagger usage");
-		System.out.println("-validate");
-		System.out.println("-tag");
-		System.out.println("-help");
+		System.out.println("Verwendung: asv-postagger [propertiefile]");
+		System.out.println("\t\t(Zum trainieren des Taggers)");
+		System.out.println("\toder asvpostagger [-options]");
+		System.out.println("\t\t(Zur Ausführung weiterer Funktionen)");
+		System.out.println("Wobei options folgendes umfasst:");
+		System.out.println("\t -genprops \t erzeugt neues tagger.properties\n");
+		System.out.println("\t -validate \t <path/to/goldCorpus> <path/to/taggedCorpus>");
+		System.out.println("\t\t\t Vergeleicht zwei Corpora\n");
+		System.out.println("\t -tag \t\t <path/to/model/folder/> <path/to/untagged/file>");
+		System.out.println("\t\t\t Taggen eines Corpus mit einem erstellten Model\n");
+		System.out.println("\t -help \t Zeigt diese Hilfe");
 	}
 }

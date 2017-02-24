@@ -16,7 +16,8 @@ public class TaggerTest {
 	
 	@Test
 	public void train() throws IOException {
-		tagger.train("test","RDRPOSTagger/pSCRDRtagger/");
+//		tagger.train("test","RDRPOSTagger/pSCRDRtagger/");
+		Cli.printUsage();
 	}
 	
 }
