@@ -21,12 +21,12 @@ public class Evaluation {
 	 * @return
 	 * @throws IOException
 	 */
-	public HashMap<String, Long> evaluate(String goldCorpus, String taggedCorpus) throws IOException {
-
-		FileReader fr1 = new FileReader(goldCorpus);
+	public HashMap<String, Long> evaluate(String pathtogoldCorpus, String pathtotaggedCorpus) throws IOException {
+		
+		FileReader fr1 = new FileReader(pathtogoldCorpus);
 		BufferedReader gCr = new BufferedReader(fr1);
 
-		FileReader fr2 = new FileReader(taggedCorpus);
+		FileReader fr2 = new FileReader(pathtotaggedCorpus);
 		BufferedReader tCr = new BufferedReader(fr2);
 
 		String goldline = "";

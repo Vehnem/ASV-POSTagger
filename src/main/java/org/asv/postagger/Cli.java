@@ -16,7 +16,7 @@ import java.util.Properties;
  * @author robert, marvin
  *
  * TODO all paths first new File -> getPath
- *
+ * TODO System.out Programmablauf überarbeiten
  */
 public class Cli {
 
@@ -150,7 +150,6 @@ public class Cli {
 		}
 	}
 
-	// TODO mkdir for output
 	public static void main(String[] args) throws IOException {
 
 		String arq = Arrays.toString(args);
@@ -175,11 +174,31 @@ public class Cli {
 			
 		//Only Eval, diff of two corpora
 		} else if (arq.contains("-validate")) {
+			if( 3 == args.length) {
+				if( new File(args[1]).exists() && new File(args[2]).exists()) {
+					
+					Evaluation eval = new Evaluation();
+					
+					HashMap<String, Long > result = eval.evaluate(args[1], args[2]);
+					
+					float fa = result.get("false");
+					float all = result.get("all");
+
+					float accuracy = 1 - (fa / all);
+					
+					System.out.println("Words count "+all);
+					System.out.println("Words false "+fa);
+					System.out.println("accuracy    "+accuracy);
+				} else {
+					System.out.println("Corpus not found");
+				}
+			}else {
+				printUsage();
+			}
 			
 		} else if (arq.contains("-help")) {
-		
+			printUsage();
 		} else {
-			//TODO catch prop not exist
 			Properties prop = loadProps(args[0]);
 			
 			String folder_path = prop.getProperty("output");
@@ -200,5 +219,9 @@ public class Cli {
 	
 	public static void printUsage() {
 		//TODO
+		System.out.println("Tagger usage");
+		System.out.println("-validate");
+		System.out.println("-tag");
+		System.out.println("-help");
 	}
 }
