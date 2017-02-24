@@ -1,12 +1,15 @@
 #!/bin/bash
 MAIN_CLS="org.asv.postagger.Cli";
 echo "$MAIN_CLS";
-if [ ! -d "/target" ]; then
+if [ ! -d "target/" ]; then
   echo "First run, compiling code..."
   mvn -am clean install \
   -Dmaven.test.skip=true \
-  -Dmaven.javadoc.skip=true 
+  -Dmaven.javadoc.skip=true
   echo "Compiling finished..."
+fi
+if [ ! -d "RDRPOSTagger/" ]; then
+  echo "Creating subfolder with RDRPOSTagger"
   git clone https://github.com/datquocnguyen/RDRPOSTagger.git
 fi
 mvn exec:java -q -Dexec.mainClass="$MAIN_CLS" -Dexec.args="$*"
