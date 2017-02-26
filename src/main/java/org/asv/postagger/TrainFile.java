@@ -16,15 +16,15 @@ import java.sql.Statement;
  * @author Robert, Marvin
  *
  */
-public class Database {
+public class TrainFile {
 
 	/**
 	 * constructor
 	 */
-	public Database() {
+	public TrainFile() {
 	}
 	
-	public void write_train_file_from_file(String pathToFile, String outPath, String delimiter, float testPercent){
+	private void write_train_file_from_file(String pathToFile, String outPath, String delimiter, float testPercent){
 		try {
 			BufferedReader read = new BufferedReader(new FileReader(pathToFile));
 			OutputStreamWriter writeTrain = new OutputStreamWriter(new FileOutputStream(outPath));
@@ -48,7 +48,7 @@ public class Database {
 		}
 	}
 
-	public int write_train_file_from_DB(String path, String driver, String url, String user, String pw, String table,
+	private int write_train_file_from_DB(String path, String driver, String url, String user, String pw, String table,
 			String column, String delimiter, float testrate, int limit) {
 		int count = 0, trainLimit = 0, i = 1;
 

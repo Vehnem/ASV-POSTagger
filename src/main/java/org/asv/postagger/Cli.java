@@ -75,9 +75,9 @@ public class Cli {
 
 	public static void fromdb(Properties prop) throws IOException {
 
-		Database database = new Database();
+		TrainFile trainFile = new TrainFile();
 
-		database.writeFileFromDB(prop.getProperty("output") + "corpus", prop.getProperty("dbAdress"),
+		trainFile.writeFileFromDB(prop.getProperty("output") + "corpus", prop.getProperty("dbAdress"),
 				prop.getProperty("dbUser"), prop.getProperty("dbPassword"), prop.getProperty("table"),
 				prop.getProperty("sentence_column"), prop.getProperty("delimiter"),
 				Integer.parseInt(prop.getProperty("testPercentage")), Integer.parseInt(prop.getProperty("limit")));
@@ -86,9 +86,9 @@ public class Cli {
 	
 	public static void fromfile(Properties prop) throws IOException {
 
-		Database database = new Database();
+		TrainFile trainFile = new TrainFile();
 
-		database.writeFileFromFile(prop.getProperty("input"), prop.getProperty("ouput"), prop.getProperty("delimiter"), Integer.parseInt(prop.getProperty("testPercentage")));
+		trainFile.writeFileFromFile(prop.getProperty("input"), prop.getProperty("ouput"), prop.getProperty("delimiter"), Integer.parseInt(prop.getProperty("testPercentage")));
 
 	}
 
