@@ -39,8 +39,8 @@ public class TrainFile {
 			float testPercent = frate / 100;
 			
 			BufferedReader read = new BufferedReader(new FileReader(pathToFile));
-			OutputStreamWriter writeTrain = new OutputStreamWriter(new FileOutputStream(outPath));
-			OutputStreamWriter writeTest = new OutputStreamWriter(new FileOutputStream(outPath + "_test"));
+			OutputStreamWriter writeTrain = new OutputStreamWriter(new FileOutputStream(outPath+"/corpus"));
+			OutputStreamWriter writeTest = new OutputStreamWriter(new FileOutputStream(outPath + "/corpus_test"));
 			String line;
 			int i = 0;
 			int test = (int) Math.floor(100/testPercent);
