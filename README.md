@@ -19,7 +19,7 @@ Example
     output = <path/to/result/folder/>    #Ausgabeordner
     delimiter= \\|                       #Trennzeichen  im Gold  Corpus
     limit=  -1                           #Wie  viele  Zeilen  aus derDatenbank , falls  -1 dann  alles
-    sentence_column=                     #Tabellenspalte  mit dengetaggten  Saetzen
+    sentence_column=                     #Tabellenspalte  mit den getaggten  Saetzen
     dbAdress=                            #Datenbankadresse
     testPercentage= 10                   #Angabe  der zu  verwendenDaten  zum  Test in  Prozent
     dbUser=                              #Name  des  Datenbankbenutzer
