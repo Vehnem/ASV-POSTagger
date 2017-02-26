@@ -22,7 +22,7 @@ public class Tagger {
 	 * 
 	 * @param pathtocorpus path to gold standard corpus
 	 * @param taggerpath path to RDRPOSTagger/pSCRDRtagger/
-	 * @throws IOException
+	 * @throws IOException IOException
 	 */
 	public void train(String pathtocorpus, String taggerpath ) throws IOException {
 
@@ -47,7 +47,7 @@ public class Tagger {
 	 * @param model  path to model (.RDR)
 	 * @param lexicon path to dictionary (.DICT)
 	 * @param corpus path to untagged corpus
-	 * @throws IOException
+	 * @throws IOException IOException
 	 */
 	public void tagfile(String model, String lexicon, String corpus) throws IOException {
 		

@@ -19,7 +19,7 @@ public class Evaluation {
 	 * @param pathtogoldCorpus path to gold standard corpus
 	 * @param pathtotaggedCorpus path to tagged corpus
 	 * @return result map with all and false
-	 * @throws IOException
+	 * @throws IOException IOException
 	 */
 	public HashMap<String, Long> evaluate(String pathtogoldCorpus, String pathtotaggedCorpus) throws IOException {
 		

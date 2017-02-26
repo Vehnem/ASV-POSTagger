@@ -66,7 +66,7 @@ public class Cli {
 	 * 
 	 * @param filename path to input properties file
 	 * @return input properties
-	 * @throws IOException
+	 * @throws IOException IOException
 	 */
 	public static Properties loadProps(String filename) throws IOException {
 		Properties prop = new Properties();
@@ -85,7 +85,7 @@ public class Cli {
 	 * Create train data from database
 	 * 
 	 * @param prop input propertiess
-	 * @throws IOException
+	 * @throws IOException IOException
 	 */
 	public static void fromdb(Properties prop) throws IOException {
 
@@ -102,7 +102,7 @@ public class Cli {
 	 * Create train data from file
 	 * 
 	 * @param prop input properties
-	 * @throws IOException
+	 * @throws IOException IOException
 	 */
 	public static void fromfile(Properties prop) throws IOException {
 
@@ -117,7 +117,7 @@ public class Cli {
 	 * Train access function
 	 * 
 	 * @param prop input properties
-	 * @throws IOException
+	 * @throws IOException IOException
 	 */
 	public static void training(Properties prop) throws IOException {
 
@@ -130,7 +130,7 @@ public class Cli {
 	 * Evaluation access function
 	 * 
 	 * @param prop input properties
-	 * @throws IOException
+	 * @throws IOException IOException
 	 */
 	public static void eval(Properties prop) throws IOException {
 
@@ -189,7 +189,7 @@ public class Cli {
 	 * Main function
 	 *  
 	 * @param args command line arguments 
-	 * @throws IOException
+	 * @throws IOException IOException
 	 */
 	public static void main(String[] args) throws IOException {
 
