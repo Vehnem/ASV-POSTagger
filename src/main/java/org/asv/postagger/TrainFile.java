@@ -73,12 +73,12 @@ public class TrainFile {
 	 * @param rate test rate
 	 * @param limit database line limit
 	 */
-	public void writeFileFromDB(String path, String driver, String user, String pw, String table,
+	public void writeFileFromDB(String path, String url, String user, String pw, String table,
 			String column, String delimiter, int rate, int limit) {
 		int count = 0, trainLimit = 0, i = 1;
 
-		String myUrl = "jdbc:mysql://com.mysql.cj.jdbc.Driver";
-		String myDriver = driver;
+		String myUrl = "jdbc:mysql://" + url;
+		String myDriver = "com.mysql.cj.jdbc.Driver";
 		
 		float frate = rate;
 		float testrate = frate / 100;
