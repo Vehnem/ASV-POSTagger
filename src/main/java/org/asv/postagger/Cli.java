@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.Socket;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Properties;
@@ -89,7 +88,7 @@ public class Cli {
 
 		Database database = new Database();
 
-		database.writeFileFromFile(prop.getProperty("input"), prop.getProperty("ouput"), Integer.parseInt(prop.getProperty("testPercentage")));
+		database.writeFileFromFile(prop.getProperty("input"), prop.getProperty("ouput"), prop.getProperty("delimiter"), Integer.parseInt(prop.getProperty("testPercentage")));
 
 	}
 

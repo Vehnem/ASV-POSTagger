@@ -24,7 +24,7 @@ public class Database {
 	public Database() {
 	}
 	
-	public void write_train_file_from_file(String pathToFile, String outPath, float testPercent){
+	public void write_train_file_from_file(String pathToFile, String outPath, String delimiter, float testPercent){
 		try {
 			BufferedReader read = new BufferedReader(new FileReader(pathToFile));
 			OutputStreamWriter writeTrain = new OutputStreamWriter(new FileOutputStream(outPath));
@@ -33,6 +33,7 @@ public class Database {
 			int i = 0;
 			int test = (int) Math.floor(100/testPercent);
 			while((line = read.readLine()) != null){
+				line = line.replaceAll(delimiter, "/");
 				if(i%test == 0){
 					writeTest.write(line + "\n");
 				} else {
@@ -116,12 +117,12 @@ public class Database {
 
 	// TODO single method
 	
-	public void writeFileFromFile(String inputFile, String filename, int rate) {
+	public void writeFileFromFile(String inputFile, String filename, String delimiter, int rate) {
 		String path = filename;
 		float frate = rate;
 		float testrate = frate / 100;
 		System.out.println("\n====== Starting ======");
-		write_train_file_from_file(inputFile, path, testrate);
+		write_train_file_from_file(inputFile, path, delimiter, testrate);
 
 	}
 
