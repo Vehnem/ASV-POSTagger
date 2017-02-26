@@ -213,17 +213,20 @@ public class Cli {
 		} else if (args[0].equals("-tag")) {
 			
 			System.out.println("=== Taggen eines Corpus ===\n");
-			
-			File pathtoModel = new File(args[1]);
-			File pathuntagged = new File(args[2]);
+			if( 3 == args.length) {
+				File pathtoModel = new File(args[1]);
+				File pathuntagged = new File(args[2]);
 		
-			if(pathtoModel.exists() && pathuntagged.exists()) {
-				Tagger tagger = new Tagger();
+				if(pathtoModel.exists() && pathuntagged.exists()) {
+					Tagger tagger = new Tagger();
 				
-				tagger.tagfile(pathtoModel.getPath()+"/corpus.RDR", 
-						pathtoModel.getPath()+"/corpus.DICT", pathuntagged.getPath());
-				System.out.println(">>> "+args[2]+".TAGGED");
-			} else {
+					tagger.tagfile(pathtoModel.getPath()+"/corpus.RDR", 
+							pathtoModel.getPath()+"/corpus.DICT", pathuntagged.getPath());
+					System.out.println(">>> "+args[2]+".TAGGED");
+				} else {
+				printUsage();
+				}
+			}else {
 				printUsage();
 			}
 			
