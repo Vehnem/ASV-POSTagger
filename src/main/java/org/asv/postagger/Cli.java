@@ -179,7 +179,7 @@ public class Cli {
 		try {
 			output = new FileOutputStream(prop.getProperty("output") + "used.properties");
 
-			prop.setProperty("accuracy", accuracy );
+			prop.setProperty("accuracy", String.valueOf(accuracy) );
 
 			prop.store(output, "Used properties + accuracy");
 		} catch (FileNotFoundException e) {
