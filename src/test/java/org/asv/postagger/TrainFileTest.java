@@ -1,7 +1,5 @@
 package org.asv.postagger;
 
-import java.awt.font.TransformAttribute;
-
 import org.junit.Test;
 import junit.framework.TestCase;
 
@@ -37,4 +35,5 @@ public class TrainFileTest extends TestCase {
 		TrainFile trainFile = new TrainFile();
 		trainFile.writeFileFromFile(pathToFile, path, delimiter, rate);
 	}
+	
 }

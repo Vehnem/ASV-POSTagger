@@ -2,10 +2,8 @@ package org.asv.postagger;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.OutputStreamWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -35,28 +33,28 @@ public class TrainFile {
 	 */
 	public void writeFileFromFile(String pathToFile, String outPath, String delimiter, int rate){
 		try {
-			float frate = rate;
-			float testPercent = frate / 100;
 			
 			BufferedReader read = new BufferedReader(new FileReader(pathToFile));
 			BufferedWriter writeTrain = new BufferedWriter(new FileWriter(outPath));
 			BufferedWriter writeTest = new BufferedWriter(new FileWriter(outPath + "_test"));
 			String line;
 			int i = 0;
-			int test = (int) Math.floor(100/testPercent);
 			while((line = read.readLine()) != null){
 				line = line.replaceAll(delimiter, "/");
-				if(i%test == 0){
+				if(i%rate == 0){
+					System.out.println(0);
 					writeTest.write(line + "\n");
 				} else {
+					System.out.println(1);
 					writeTrain.write(line + "\n");
 				}
+				i++;
 			}
 			
 			writeTrain.flush();
 			writeTrain.close();
 			
-			writeTest.close();
+			writeTest.flush();
 			writeTest.close();
 			read.close();
 		} catch(Exception e){
