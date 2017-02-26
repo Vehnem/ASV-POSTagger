@@ -287,7 +287,7 @@ public class Cli {
 			System.out.println(">>> "+outp+"/corpus.RDR");
 			System.out.println(">>> "+outp+"/corpus.DICT");
 			
-			System.out.println("Evauliere auf Testdatensatz...");
+			System.out.println("Evaluiere auf Testdatensatz...");
 			eval(prop);
 			System.out.println(">>> "+outp+"/corpus_test_wot");
 			System.out.println(">>> "+outp+"/corpus_test_wot.TAGGED");
