@@ -19,11 +19,11 @@ public class Tagset {
 
 	/**
 	 * change a tag set with a property file
-	 * OLDTAG <TAB> NEWTAG
+	 * OLDTAG tab NEWTAG
 	 * 
 	 * @param pathtotaggedcorpus path to tagged corpus
 	 * @param pathtochangefile path to change file
-	 * @throws IOException
+	 * @throws IOException IOException
 	 */
 	public void change(String pathtotaggedcorpus,String pathtochangefile) throws IOException {
 		
@@ -70,7 +70,7 @@ public class Tagset {
 	 * @param inpath path to tagged corpus
 	 * @param outpath result path
 	 * @param split delimiter sign
-	 * @throws IOException
+	 * @throws IOException IOExceptio
 	 */
 	//TODO special cases for example " -> ''
 	public void removeTags(String inpath, String outpath, String split) throws IOException {

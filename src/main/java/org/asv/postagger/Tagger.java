@@ -20,7 +20,7 @@ public class Tagger {
 	/**
 	 * Train with the RDRPOSTagger over python access
 	 * 
-	 * @param goldCorpus path to gold standard corpus
+	 * @param pathtocorpus path to gold standard corpus
 	 * @param taggerpath path to RDRPOSTagger/pSCRDRtagger/
 	 * @throws IOException
 	 */

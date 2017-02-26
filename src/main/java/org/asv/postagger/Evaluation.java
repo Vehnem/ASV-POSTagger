@@ -16,8 +16,8 @@ public class Evaluation {
 	/**
 	 * Evaluation over GoldCorpus and TaggedCorpus data
 	 * 
-	 * @param goldCorpus path to gold standard corpus
-	 * @param taggedCorpus path to tagged corpus
+	 * @param pathtogoldCorpus path to gold standard corpus
+	 * @param pathtotaggedCorpus path to tagged corpus
 	 * @return result map with all and false
 	 * @throws IOException
 	 */
