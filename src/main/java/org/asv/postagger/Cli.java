@@ -91,7 +91,9 @@ public class Cli {
 
 		TrainFile trainFile = new TrainFile();
 
-		trainFile.writeFileFromDB(prop.getProperty("output") + "corpus", prop.getProperty("dbAdress"),
+		File outfile = new File(prop.getProperty("output"));
+		
+		trainFile.writeFileFromDB(outfile.getPath() + "/corpus", prop.getProperty("dbAdress"),
 				prop.getProperty("dbUser"), prop.getProperty("dbPassword"), prop.getProperty("table"),
 				prop.getProperty("sentence_column"), prop.getProperty("delimiter"),
 				Integer.parseInt(prop.getProperty("testPercentage")), Integer.parseInt(prop.getProperty("limit")));
@@ -108,7 +110,9 @@ public class Cli {
 
 		TrainFile trainFile = new TrainFile();
 
-		trainFile.writeFileFromFile(prop.getProperty("input"), prop.getProperty("output"), prop.getProperty("delimiter"), Integer.parseInt(prop.getProperty("testPercentage")));
+		File outfile = new File(prop.getProperty("output"));
+		
+		trainFile.writeFileFromFile(prop.getProperty("input"), outfile.getPath()+"/corpus", prop.getProperty("delimiter"), Integer.parseInt(prop.getProperty("testPercentage")));
 
 	}
 
