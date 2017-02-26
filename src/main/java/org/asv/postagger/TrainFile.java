@@ -42,10 +42,8 @@ public class TrainFile {
 			while((line = read.readLine()) != null){
 				line = line.replaceAll(delimiter, "/");
 				if(i%rate == 0){
-					System.out.println(0);
 					writeTest.write(line + "\n");
 				} else {
-					System.out.println(1);
 					writeTrain.write(line + "\n");
 				}
 				i++;
