@@ -52,7 +52,10 @@ public class TrainFile {
 					writeTrain.write(line + "\n");
 				}
 			}
+			writeTrain.flush();
 			writeTrain.close();
+			
+			writeTest.flush();
 			writeTest.close();
 			read.close();
 		} catch(Exception e){
