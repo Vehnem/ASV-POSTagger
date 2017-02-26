@@ -2,29 +2,26 @@ package org.asv.postagger;
 
 import java.io.IOException;
 import java.util.HashMap;
-
-import org.junit.BeforeClass;
 import org.junit.Test;
 
+/**
+ * Evaluation test class
+ * 
+ * @author marvin, robert
+ *
+ */
 public class EvalTest {
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
+	//params
+	private static final String pathtogoldCorpus ="";
+	private static final String pathtotaggedCorpus ="";
+	
 	@Test
 	public void test() throws IOException {
-//		Tagset tagset = new Tagset();
-//		
-//		tagset.removeTags("data/corpus_test", "corpust_test_wot", "/");
-//		
-//		Tagger tagger = new Tagger();
-//		
-//		tagger.tagfile("/test.RDR","./test.DICT", "/test_test_wot");
 		
 		Evaluation evaluation = new Evaluation();
 		HashMap<String, Long> map = new HashMap<String, Long>();
-		map = evaluation.evaluate("data/corpus_test", "data/corpus_test_wot.TAGGED");
+		map = evaluation.evaluate(pathtogoldCorpus, pathtotaggedCorpus);
 		
 		float fa = map.get("false");
 		float all = map.get("all");

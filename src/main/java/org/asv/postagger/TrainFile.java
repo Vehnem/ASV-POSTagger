@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 /**
+ * Generate train and test data from file or database
  * 
  * @author Robert, Marvin
  *
@@ -19,11 +20,19 @@ import java.sql.Statement;
 public class TrainFile {
 
 	/**
-	 * constructor
+	 * empty constructor
 	 */
 	public TrainFile() {
 	}
 	
+	/**
+	 * From file
+	 * 
+	 * @param pathToFile path to input file
+	 * @param outPath output path to train and test data
+	 * @param delimiter delimiter
+	 * @param rate test rate
+	 */
 	public void writeFileFromFile(String pathToFile, String outPath, String delimiter, int rate){
 		try {
 			float frate = rate;
@@ -51,7 +60,20 @@ public class TrainFile {
 		}
 	}
 
-	public int writeFileFromDB(String path, String driver, String user, String pw, String table,
+	/**
+	 * From database
+	 * 
+	 * @param path output path
+	 * @param driver database driver
+	 * @param user database user
+	 * @param pw database password
+	 * @param table database table
+	 * @param column table column
+	 * @param delimiter delimiter
+	 * @param rate test rate
+	 * @param limit database line limit
+	 */
+	public void writeFileFromDB(String path, String driver, String user, String pw, String table,
 			String column, String delimiter, int rate, int limit) {
 		int count = 0, trainLimit = 0, i = 1;
 
@@ -119,6 +141,5 @@ public class TrainFile {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return trainLimit;
 	}
 }

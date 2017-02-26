@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Class for train and tagging with the RDRPOSTagger
  * 
  * @author marvin, robert
  *
@@ -17,9 +18,10 @@ public class Tagger {
 	private static final Logger LOGGER = Logger.getLogger(Tagger.class.getName());
 	
 	/**
+	 * Train with the RDRPOSTagger over python access
 	 * 
-	 * 
-	 * @param goldCorpus
+	 * @param goldCorpus path to gold standard corpus
+	 * @param taggerpath path to RDRPOSTagger/pSCRDRtagger/
 	 * @throws IOException
 	 */
 	public void train(String pathtocorpus, String taggerpath ) throws IOException {
@@ -40,15 +42,14 @@ public class Tagger {
 	
 	/**
 	 * Tag a file with lexicon and corpus
-	 * with RDRPostagger python
+	 * with RDRPostagger python access
 	 * 
-	 * @param model 
-	 * @param lexicon
-	 * @param corpus 
-	 * @return
+	 * @param model  path to model (.RDR)
+	 * @param lexicon path to dictionary (.DICT)
+	 * @param corpus path to untagged corpus
 	 * @throws IOException
 	 */
-	public boolean tagfile(String model, String lexicon, String corpus) throws IOException {
+	public void tagfile(String model, String lexicon, String corpus) throws IOException {
 		
 		//python RDRPOSTagger.py tag ../Models/POS/German.RDR ../Models/POS/German.DICT ../data/GermanRawTest
 		ProcessBuilder pb = new ProcessBuilder("python", "RDRPOSTagger.py", "tag","../../"+model,"../../"+lexicon,"../../"+corpus);
@@ -66,13 +67,10 @@ public class Tagger {
 			do {
 				LOGGER.log(Level.SEVERE, err);
 			} while( null != (err = error.readLine()));
-			return false;
 		}
 		
 		while( null != (ret = in.readLine())) {
 			LOGGER.log(Level.FINE, ret);
 		}
-		
-		return true;
 	}
 }

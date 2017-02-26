@@ -1,22 +1,32 @@
 package org.asv.postagger;
 
 import java.io.IOException;
-
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-//rename in TrainTest
+/**
+ * Tagger test class
+ * 
+ * @author marvin, robert
+ *
+ */
 public class TaggerTest {
 
-	Tagger tagger = new Tagger();
-	
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
+	//params
+	private static final String pathtogoldcorpus ="";
+	private static final String taggerpath ="";
+	private static final String pathtomodel ="";
+	private static final String pathtolexicon ="";
+	private static final String pathtountaggedcorpus ="";
 	
 	@Test
 	public void train() throws IOException {
-//		tagger.train("test","RDRPOSTagger/pSCRDRtagger/");
-		Cli.printUsage();
+		Tagger tagger = new Tagger();
+		tagger.train(pathtogoldcorpus, taggerpath);
+	}
+	
+	@Test
+	public void tag() throws IOException {
+		Tagger tagger = new Tagger();
+		tagger.tagfile(pathtomodel, pathtolexicon, pathtountaggedcorpus);
 	}
 }

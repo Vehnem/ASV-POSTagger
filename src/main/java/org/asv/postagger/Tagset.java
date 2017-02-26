@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Handle Tagsets
+ * Handles tag sets for tagged corpora
  * 
  * @author marvin, robert
  *
@@ -18,15 +18,17 @@ import java.util.List;
 public class Tagset {
 
 	/**
+	 * change a tag set with a property file
+	 * OLDTAG <TAB> NEWTAG
 	 * 
-	 * @param pathtotaggedcorpus
-	 * @param pathtopropertyfile
+	 * @param pathtotaggedcorpus path to tagged corpus
+	 * @param pathtochangefile path to change file
 	 * @throws IOException
 	 */
-	public void change(String pathtotaggedcorpus,String pathtopropertyfile) throws IOException {
+	public void change(String pathtotaggedcorpus,String pathtochangefile) throws IOException {
 		
 		//load changing tags
-		FileReader prop_file = new FileReader(pathtopropertyfile);
+		FileReader prop_file = new FileReader(pathtochangefile);
 		BufferedReader prop_reader = new BufferedReader(prop_file);
 		String line = "";
 		HashMap<String, String> changemap = new HashMap<String, String>();
@@ -63,13 +65,14 @@ public class Tagset {
 	}	
 	
 	/**
+	 * Removes tags from a tagged corpus
 	 * 
-	 * @param inpath
-	 * @param outpath
-	 * @param split
+	 * @param inpath path to tagged corpus
+	 * @param outpath result path
+	 * @param split delimiter sign
 	 * @throws IOException
 	 */
-	//TODO 
+	//TODO special cases for example " -> ''
 	public void removeTags(String inpath, String outpath, String split) throws IOException {
 		
 		FileReader fr = new FileReader(inpath);

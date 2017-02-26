@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 /**
+ * Evaluate a tagged corpus against a gold standard
  * 
  * @author robert, marvin
  *
@@ -13,12 +14,11 @@ import java.util.HashMap;
 public class Evaluation {
 
 	/**
-	 * 
 	 * Evaluation over GoldCorpus and TaggedCorpus data
 	 * 
-	 * @param goldCorpus
-	 * @param taggedCorpus
-	 * @return
+	 * @param goldCorpus path to gold standard corpus
+	 * @param taggedCorpus path to tagged corpus
+	 * @return result map with all and false
 	 * @throws IOException
 	 */
 	public HashMap<String, Long> evaluate(String pathtogoldCorpus, String pathtotaggedCorpus) throws IOException {
@@ -36,8 +36,6 @@ public class Evaluation {
 		long falseWords = 0;
 
 		while ((goldline = gCr.readLine()) != null && null != (taggedline = tCr.readLine())) {
-
-			//System.out.println(goldline + " \n " + taggedline);
 
 			String[] gLsplit = goldline.split(" ");
 			String[] tLsplit = taggedline.split(" ");

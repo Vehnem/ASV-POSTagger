@@ -12,15 +12,18 @@ import java.util.HashMap;
 import java.util.Properties;
 
 /**
+ * Command line interface and program runtime
  * 
  * @author robert, marvin
  *
- * TODO all paths first new File -> getPath
- * TODO System.out Programmablauf überarbeiten
  */
 public class Cli {
 
-	public static boolean genProps() {
+	/**
+	 * Generates empty properties file
+	 *
+	 */
+	public static void genProps() {
 		Properties prop = new Properties();
 		OutputStream output = null;
 
@@ -45,10 +48,8 @@ public class Cli {
 			// save properties to project folder
 			prop.store(output, "Tagger Properties:");
 
-			return true;
 		} catch (Exception e) {
 			// Error Log
-			return false;
 		} finally {
 			if (output != null) {
 				try {
@@ -60,6 +61,13 @@ public class Cli {
 		}
 	}
 
+	/**
+	 * Load input properties file
+	 * 
+	 * @param filename path to input properties file
+	 * @return input properties
+	 * @throws IOException
+	 */
 	public static Properties loadProps(String filename) throws IOException {
 		Properties prop = new Properties();
 		InputStream input = null;
@@ -73,6 +81,12 @@ public class Cli {
 
 	}
 
+	/**
+	 * Create train data from database
+	 * 
+	 * @param prop input propertiess
+	 * @throws IOException
+	 */
 	public static void fromdb(Properties prop) throws IOException {
 
 		TrainFile trainFile = new TrainFile();
@@ -84,6 +98,12 @@ public class Cli {
 
 	}
 	
+	/**
+	 * Create train data from file
+	 * 
+	 * @param prop input properties
+	 * @throws IOException
+	 */
 	public static void fromfile(Properties prop) throws IOException {
 
 		TrainFile trainFile = new TrainFile();
@@ -92,6 +112,13 @@ public class Cli {
 
 	}
 
+	/**
+	 * 
+	 * Train access function
+	 * 
+	 * @param prop input properties
+	 * @throws IOException
+	 */
 	public static void training(Properties prop) throws IOException {
 
 		Tagger tagger = new Tagger();
@@ -99,6 +126,12 @@ public class Cli {
 		tagger.train(prop.getProperty("output") + "/corpus", "RDRPOSTagger/pSCRDRtagger/");
 	}
 
+	/**
+	 * Evaluation access function
+	 * 
+	 * @param prop input properties
+	 * @throws IOException
+	 */
 	public static void eval(Properties prop) throws IOException {
 
 		Tagset tagset = new Tagset();
@@ -122,7 +155,9 @@ public class Cli {
 
 		float accuracy = 1 - (fa / all);
 
-		System.out.println(accuracy);
+		System.out.println("Words count "+all);
+		System.out.println("Words false "+fa);
+		System.out.println("accuracy    "+accuracy);
 
 		genresult(prop, accuracy);
 	}
@@ -130,8 +165,8 @@ public class Cli {
 	/**
 	 * Copy of the input properties  file with accuracy parameter
 	 * 
-	 * @param prop
-	 * @param accuracy
+	 * @param prop input properties
+	 * @param accuracy additional accuracy
 	 */
 	public static void genresult(Properties prop, float accuracy) {
 
@@ -150,6 +185,12 @@ public class Cli {
 		}
 	}
 
+	/**
+	 * Main function
+	 *  
+	 * @param args command line arguments 
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws IOException {
 
 		if(0 == args.length) {
@@ -159,11 +200,15 @@ public class Cli {
 		
 		String arq = Arrays.toString(args);
 		
-		// Generate new Property File: -genprops
+		// Generate new properties file
 		if (arq.contains("-genprops")) {
+			System.out.println("=== Generiere Properties-File ===\n");
+			System.out.println(">>> tagger.properties");
 			genProps();
-		//Taggen
+		//tag
 		} else if (args[0].equals("-tag")) {
+			
+			System.out.println("=== Taggen eines Corpus ===\n");
 			
 			File pathtoModel = new File(args[1]);
 			File pathuntagged = new File(args[2]);
@@ -173,13 +218,17 @@ public class Cli {
 				
 				tagger.tagfile(pathtoModel.getPath()+"/corpus.RDR", 
 						pathtoModel.getPath()+"/corpus.DICT", pathuntagged.getPath());
+				System.out.println(">>> "+args[2]+".TAGGED");
 			} else {
 				printUsage();
 			}
 			
-		//Validieren
+		//validate
 		} else if (arq.contains("-validate")) {
 			if( 3 == args.length) {
+				
+				System.out.println("=== Valiediere Corpora ===\n");
+				
 				if( new File(args[1]).exists() && new File(args[2]).exists()) {
 					
 					Evaluation eval = new Evaluation();
@@ -200,29 +249,48 @@ public class Cli {
 			}else {
 				printUsage();
 			}
-		//Hilfe
+		//help
 		} else if (arq.contains("-help" )) {
 			printUsage();
-		//Trainieren
-		} else {
+		//train
+		} else {	
+			System.out.println("=== Trainiere Model ===");
 			Properties prop = loadProps(args[0]);
+			
+			String outp = new File(prop.getProperty("output")).getPath();
 			
 			String folder_path = prop.getProperty("output");
 			File folder = new File(folder_path);
 			folder.mkdirs();
 			
 			if(prop.getProperty("input").equals("")){
+				System.out.println("Erzeuge Trainingsdaten von Datenbank...");
 				fromdb(prop);
+				System.out.println(">>> "+outp+"/corpus");
+				System.out.println(">>> "+outp+"/corpus_test");
 			} else {
+				System.out.println("Erzeuge Trainingsdaten von Datei");
 				fromfile(prop);
+				System.out.println(">>> "+outp+"/corpus");
+				System.out.println(">>> "+outp+"/corpus_test");
 			}
-			System.out.println("train...");
+			
+			System.out.println("Trainiere auf Trainingsdatensatz...");
 			training(prop);
-			System.out.println("evaluate...");
+			System.out.println(">>> "+outp+"/corpus.RDR");
+			System.out.println(">>> "+outp+"/corpus.DICT");
+			
+			System.out.println("Evauliere auf Testdatensatz...");
 			eval(prop);
+			System.out.println(">>> "+outp+"/corpus_test_wot");
+			System.out.println(">>> "+outp+"/corpus_test_wot.TAGGED");
+			System.out.println(">>> "+outp+"/used.properties");
 		} 
 	}
 	
+	/**
+	 * Print program usage on command line
+	 */
 	public static void printUsage() {
 		System.out.println("Verwendung:");
 		System.out.println("\t     asv-postagger [propertiefile]");
