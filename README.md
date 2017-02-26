@@ -4,10 +4,15 @@ based on https://github.com/datquocnguyen/RDRPOSTagger
 
 ## Basic usage
 First use
+
     $ asv -postagger  -help
+    
 Generate empty properties file
+
     $ asv -postagger  -genprops
+    
 Example
+
     #Tagger  Properties:
     #Fri Feb 24  12:02:28  CET  2017
     input   = <path/to/goldCorpus/file > #Falls  leer  benutze  Datenbank
@@ -20,5 +25,7 @@ Example
     dbUser= #Name  des  Datenbankbenutzer
     table= #Tabelle  mit den  getaggtenSaetzen
     dbPassword= #Datenbankpasswort
+    
 Train
+
    $ asv -postagger  tagger.properties
