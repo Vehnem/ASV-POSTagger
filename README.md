@@ -16,16 +16,16 @@ Example
     #Tagger  Properties:
     #Fri Feb 24  12:02:28  CET  2017
     input   = <path/to/goldCorpus/file > #Falls  leer  benutze  Datenbank
-    output = <path/to/result/folder/> #Ausgabeordner
-    delimiter= \\| #Trennzeichen  im Gold  Corpus
-    limit=  -1 #Wie  viele  Zeilen  aus derDatenbank , falls  -1 dann  alles
-    sentence_column= #Tabellenspalte  mit dengetaggten  Saetzen
-    dbAdress= #Datenbankadresse
-    testPercentage= 10 #Angabe  der zu  verwendenDaten  zum  Test in  Prozent
-    dbUser= #Name  des  Datenbankbenutzer
-    table= #Tabelle  mit den  getaggtenSaetzen
-    dbPassword= #Datenbankpasswort
+    output = <path/to/result/folder/>    #Ausgabeordner
+    delimiter= \\|                       #Trennzeichen  im Gold  Corpus
+    limit=  -1                           #Wie  viele  Zeilen  aus derDatenbank , falls  -1 dann  alles
+    sentence_column=                     #Tabellenspalte  mit dengetaggten  Saetzen
+    dbAdress=                            #Datenbankadresse
+    testPercentage= 10                   #Angabe  der zu  verwendenDaten  zum  Test in  Prozent
+    dbUser=                              #Name  des  Datenbankbenutzer
+    table=                               #Tabelle  mit den  getaggtenSaetzen
+    dbPassword=                          #Datenbankpasswort
     
 Train
 
-   $ asv -postagger  tagger.properties
+    $ asv -postagger  tagger.properties
