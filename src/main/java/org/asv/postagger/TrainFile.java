@@ -24,8 +24,11 @@ public class TrainFile {
 	public TrainFile() {
 	}
 	
-	private void write_train_file_from_file(String pathToFile, String outPath, String delimiter, float testPercent){
+	public void writeFileFromFile(String pathToFile, String outPath, String delimiter, int rate){
 		try {
+			float frate = rate;
+			float testPercent = frate / 100;
+			
 			BufferedReader read = new BufferedReader(new FileReader(pathToFile));
 			OutputStreamWriter writeTrain = new OutputStreamWriter(new FileOutputStream(outPath));
 			OutputStreamWriter writeTest = new OutputStreamWriter(new FileOutputStream(outPath + "_test"));
@@ -48,12 +51,16 @@ public class TrainFile {
 		}
 	}
 
-	private int write_train_file_from_DB(String path, String driver, String url, String user, String pw, String table,
-			String column, String delimiter, float testrate, int limit) {
+	public int writeFileFromDB(String path, String driver, String user, String pw, String table,
+			String column, String delimiter, int rate, int limit) {
 		int count = 0, trainLimit = 0, i = 1;
 
-		String myUrl = "jdbc:mysql://" + url;
+		String myUrl = "jdbc:mysql://com.mysql.cj.jdbc.Driver";
 		String myDriver = driver;
+		
+		float frate = rate;
+		float testrate = frate / 100;
+		
 		try {
 			// writer for training data and other data
 			BufferedWriter trainData = new BufferedWriter(new FileWriter(path));
@@ -113,29 +120,5 @@ public class TrainFile {
 			e.printStackTrace();
 		}
 		return trainLimit;
-	}
-
-	// TODO single method
-	
-	public void writeFileFromFile(String inputFile, String filename, String delimiter, int rate) {
-		String path = filename;
-		float frate = rate;
-		float testrate = frate / 100;
-		System.out.println("\n====== Starting ======");
-		write_train_file_from_file(inputFile, path, delimiter, testrate);
-
-	}
-
-	public void writeFileFromDB(String filename, String databaseUrl, String user, String pw, String tablename,
-			String column, String delimiter, int rate, int limit) {
-		String path = filename;
-		String driver = "com.mysql.cj.jdbc.Driver";
-		float frate = rate;
-		float testrate = frate / 100;
-		System.out.println("\n====== Starting ======");
-		System.out.println(filename);
-		System.out.println("database...");
-		write_train_file_from_DB(path, driver, databaseUrl, user, pw, tablename, column, delimiter, testrate, limit);
-
 	}
 }
