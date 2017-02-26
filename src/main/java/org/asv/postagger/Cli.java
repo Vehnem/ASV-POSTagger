@@ -108,7 +108,7 @@ public class Cli {
 
 		TrainFile trainFile = new TrainFile();
 
-		trainFile.writeFileFromFile(prop.getProperty("input"), prop.getProperty("ouput"), prop.getProperty("delimiter"), Integer.parseInt(prop.getProperty("testPercentage")));
+		trainFile.writeFileFromFile(prop.getProperty("input"), prop.getProperty("output"), prop.getProperty("delimiter"), Integer.parseInt(prop.getProperty("testPercentage")));
 
 	}
 
