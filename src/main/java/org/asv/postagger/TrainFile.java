@@ -64,7 +64,7 @@ public class TrainFile {
 	 * From database
 	 * 
 	 * @param path output path
-	 * @param driver database driver
+	 * @param url database adress
 	 * @param user database user
 	 * @param pw database password
 	 * @param table database table
